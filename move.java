@@ -9,14 +9,14 @@ public class move
   public final boolean moved;
   private piece[] pieces;
   private int pieceIndex;
-  
+
   public move(piece[] board, int i, int direction)
   {
     pieceIndex=i;
     pieces = board.clone();
     piece p = pieces[i];
     boolean movedt=false;
-    
+
     //moves piece to available direction
     if (direction==1)//front left code
     {
@@ -73,7 +73,7 @@ public class move
     moved=movedt;
     output=pieces;
     //end piece move
-    
+
     //begin assessing move
     int temphol=0;
     for (int x=0; x < 8; x++)
@@ -88,7 +88,7 @@ public class move
         temphol++;
     }
     holes=temphol;
-    
+
     int tempjum=0;
     for (int x=0; x < 8; x++)
     {
@@ -103,7 +103,7 @@ public class move
     }
     jumps=tempjum;
     total=jumps-holes;
-    
+
   }
   private boolean canJump(piece j, int direc)
   {
@@ -125,6 +125,19 @@ public class move
     }
     return false;
   }
+
+  private int canJump(piece j)
+  {
+
+      return (!isAvailable(j.getX()-1, j.getY()-1) &&  pieceColorAt(j.getX()-1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()-2))
+    ||
+      return (!isAvailable(j.getX()+1, j.getY()-1) &&  pieceColorAt(j.getX()+1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()-2))
+    ||
+      return (!isAvailable(j.getX()+1, j.getY()+1) &&  pieceColorAt(j.getX()+1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()+2))
+    ||
+      return (!isAvailable(j.getX()-1, j.getY()+1) &&  pieceColorAt(j.getX()-1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()+2));
+  }
+
   private boolean isAvailable(int x, int y)
   {
     for (piece pt : pieces)
@@ -136,7 +149,7 @@ public class move
       return false;
     return true;
   }
-  
+
   piece getPieceAt(int x, int y)
   {
     for (int i=0; i < 16; i++)
@@ -151,16 +164,16 @@ public class move
   {
     return getPieceAt(x,y).getColor();
   }
-  
+
   void outPiece(piece p)
   {
     p.setCoords(9, 9);
     p.setPress(false);
     p.setIn(false);
   }
-  
+
   void jump(piece f, int direc)
   {
-    
+
   }
 }
