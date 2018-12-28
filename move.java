@@ -174,6 +174,6 @@ public class move
 
   void jump(piece f, int direc)
   {
-
+    
   }
 }
