@@ -25,13 +25,13 @@ public class move
         p.setCoords(p.getX()-1, p.getY()-1);
         movedt=true;
       }
-      else if (canJump(p, 1))
+      else if (canJump(p, 1) && p.isKing())
       {
         jump(p,1);
         movedt=true;
       }
     }
-    else if(direction==2)//front right code
+    else if(direction==2 && p.isKing())//front right code
     {
       if (isAvailable(p.getX()+1, p.getY()-1))
       {
@@ -44,7 +44,7 @@ public class move
         movedt=true;
       }
     }
-    else if(direction==3 && p.isKing())//back right code
+    else if(direction==3)//back right code
     {
       if (isAvailable(p.getX()+1, p.getY()+1))
       {
@@ -57,7 +57,7 @@ public class move
         movedt=true;
       }
     }
-    else if(direction==4 && p.isKing())//back left code
+    else if(direction==4)//back left code
     {
       if (isAvailable(p.getX()-1, p.getY()+1))
       {
@@ -109,11 +109,11 @@ public class move
   {
     if (direc==1)
     {
-      return (!isAvailable(j.getX()-1, j.getY()-1) &&  pieceColorAt(j.getX()-1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()-2));
+      return (!isAvailable(j.getX()-1, j.getY()-1) &&  pieceColorAt(j.getX()-1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()-2) && j.isKing());
     }
     if (direc==2)
     {
-      return (!isAvailable(j.getX()+1, j.getY()-1) &&  pieceColorAt(j.getX()+1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()-2));
+      return (!isAvailable(j.getX()+1, j.getY()-1) &&  pieceColorAt(j.getX()+1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()-2) && j.isKing());
     }
     if (direc==3)
     {
@@ -121,21 +121,21 @@ public class move
     }
     if (direc==4)
     {
-      return (!isAvailable(j.getX()-1, j.getY()+1) &&  pieceColorAt(j.getX()-1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()+2)  );
+      return (!isAvailable(j.getX()-1, j.getY()+1) &&  pieceColorAt(j.getX()-1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()+2));
     }
     return false;
   }
 
-  private int canJump(piece j)
+  private boolean canJump(piece j)
   {
 
-      return (!isAvailable(j.getX()-1, j.getY()-1) &&  pieceColorAt(j.getX()-1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()-2))
+      return (!isAvailable(j.getX()-1, j.getY()-1) &&  pieceColorAt(j.getX()-1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()-2) && j.isKing())
     ||
-      return (!isAvailable(j.getX()+1, j.getY()-1) &&  pieceColorAt(j.getX()+1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()-2))
+      (!isAvailable(j.getX()+1, j.getY()-1) &&  pieceColorAt(j.getX()+1, j.getY()-1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()-2) && j.isKing())
     ||
-      return (!isAvailable(j.getX()+1, j.getY()+1) &&  pieceColorAt(j.getX()+1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()+2))
+      (!isAvailable(j.getX()+1, j.getY()+1) &&  pieceColorAt(j.getX()+1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()+2, j.getY()+2))
     ||
-      return (!isAvailable(j.getX()-1, j.getY()+1) &&  pieceColorAt(j.getX()-1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()+2));
+      (!isAvailable(j.getX()-1, j.getY()+1) &&  pieceColorAt(j.getX()-1, j.getY()+1).equals((j.getColor().equals("black")) ? "red" : "black") && isAvailable(j.getX()-2, j.getY()+2));
   }
 
   private boolean isAvailable(int x, int y)
@@ -173,6 +173,46 @@ public class move
   }
 
   void jump(piece f, int direc)
+  {
+    if(canJump(f, direc))
+    {
+      if (direc==1)//front left code
+      {
+        if (isAvailable(f.getX()-2, f.getY()-2))
+        {
+          outPiece(getPieceAt(f.getX()-1, f.getY()-1));
+          f.setCoords(f.getX()-2, f.getY()-2);
+        }
+      }
+      if (direc==2)//front right code
+      {
+        if (isAvailable(f.getX()+2, f.getY()-2))
+        {
+          outPiece(getPieceAt(f.getX()+1, f.getY()-1));
+          f.setCoords(f.getX()+2, f.getY()-2);
+        }
+      }
+      if (direc==3)//back right code
+      {
+        if (isAvailable(f.getX()+2, f.getY()+2))
+        {
+          outPiece(getPieceAt(f.getX()+1, f.getY()+1));
+          f.setCoords(f.getX()+2, f.getY()+2);
+        }
+      }
+      if (direc==4)//back left code
+      {
+        if (isAvailable(f.getX()-2, f.getY()+2))
+        {
+          outPiece(getPieceAt(f.getX()-1, f.getY()+1));
+          f.setCoords(f.getX()-2, f.getY()+2);
+        }
+      }
+    }
+    
+  }
+  
+  void jump(piece f)
   {
     
   }
