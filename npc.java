@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class npc
 {
-  private static move[] moves = new move[64];
+  private static move[] moves = new move[32];
   public static piece[] turn(piece[] pieces)
   {
     piece[] output;

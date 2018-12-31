@@ -215,5 +215,6 @@ public class move
   void jump(piece f)
   {
     
+    
   }
 }
