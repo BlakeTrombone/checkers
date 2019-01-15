@@ -16,6 +16,14 @@ public class piece
     isIn=true;
   }
   
+  private piece(int nx, int ny, String clr, boolean kng, boolean isn, boolean psd)
+  {
+    setCoords(nx, ny);
+    king=kng;
+    isIn=isn;
+    pressed=psd;
+  }
+  
   public void setCoords(int nx, int ny)
   {
     x=nx;
@@ -75,5 +83,10 @@ public class piece
   public boolean isPressed()
   {
     return pressed;
+  }
+  
+  public piece clone()
+  {
+    return new piece(x, y, colr, king, isIn, pressed);
   }
 }
