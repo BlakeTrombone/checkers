@@ -6,8 +6,10 @@ public class npc
   public static piece[] turn(piece[] pieces)
   {
     piece[] output;
+    for (int x =0; x < pieces.length; x++)
+      pieces[x]=pieces[x].clone();
     for(int i =0; i < 32; i++)
-      moves[i]=new move(pieces, i/4 ,(i%4)+1);
+      moves[i]=new move(pieces.clone(), i/4 ,(i%4)+1);
     
     int curbest=0;
       for (int o=0; o < 5; o++)
