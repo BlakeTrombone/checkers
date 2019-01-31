@@ -64,6 +64,16 @@ public class piece
   {
     return colr;
   }
+
+    public void switchColor()
+    {
+        if (colr.equals("Black"))
+            colr="Red";
+        else if (colr.equals("Red"))
+            colr="Black";
+        else
+            System.out.println("I DON'T KNOW WHAT THE COLOR IS");
+    }
   
   public boolean getIn()
   {

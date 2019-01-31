@@ -2,6 +2,8 @@
 private piece[] pieces = new piece[16];
 private int clicker=0;
 private boolean npcTurn=false;
+private boolean ready=false;
+private boolean server;
 
 
 //End Global Variables
@@ -176,15 +178,22 @@ void setup()
 
 void draw()
 {
-  if (npcTurn)
+  if (!ready)
   {
-    pieces=npc.turn(pieces);
-    npcTurn=false;
+    
   }
-  background(255/2);
-  drawBoard();
-  piecesDraw();
-  crownKings();
+  if (ready)
+  {
+    if (npcTurn)
+    {
+      pieces=npc.turn(pieces);
+      npcTurn=false;
+    }
+    background(255/2);
+    drawBoard();
+    piecesDraw();
+    crownKings();
+  }
 }
 
 
@@ -193,63 +202,70 @@ void mouseClicked()
   int clickX=mouseX;
   int clickY=mouseY;
   System.out.println("Click! "+ ++clicker);
-  for (piece p : pieces)
+  if (!ready)
   {
-    if(Math.abs(clickY-p.getYPixel()) <= 75/3 && Math.abs(clickX-p.getXPixel()) <= 75/3 && p.getColor().equals("black") && p.getIn())
-    {
-      boolean adf = p.isPressed();
-      for (piece pt : pieces)
-        pt.setPress(false);
-      p.setPress(!adf);
-    }
     
-    if (clickX >= (p.getX()-2)*75 && clickX <=((p.getX()-2)*75)+74 && clickY >= (p.getY()-2)*75 && clickY <=((p.getY()-2)*75)+74 && p.isPressed())
+  }
+  
+  if (ready)
+  {
+    for (piece p : pieces)
     {
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    if (clickX >= (p.getX())*75 && clickX <=((p.getX())*75)+74 && clickY >= (p.getY()-2)*75 && clickY <=((p.getY()-2)*75)+74 && p.isPressed())
-    {
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    if (clickX >= (p.getX()-2)*75 && clickX <=((p.getX()-2)*75)+74 && clickY >= (p.getY())*75 && clickY <=((p.getY())*75)+74 && p.isPressed() &&p.isKing())
-    {
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    if (clickX >= (p.getX())*75 && clickX <=((p.getX())*75)+74 && clickY >= (p.getY())*75 && clickY <=((p.getY())*75)+74 && p.isPressed() && p.isKing())
-    {
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    //jump drawing code
-      if (clickX >= (p.getX()-3)*75 && clickX <=((p.getX()-3)*75)+74 && clickY >= (p.getY()-3)*75 && clickY <=((p.getY()-3)*75)+74 && p.isPressed() && isAvailable(p.getX()-2, p.getY()-2) && pieceColorAt(p.getX()-1, p.getY()-1).equals("red"))
-    {
-      outPiece(getPieceAt(p.getX()-1, p.getY()-1));
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    if (clickX >= (p.getX()+1)*75 && clickX <=((p.getX()+1)*75)+74 && clickY >= (p.getY()-3)*75 && clickY <=((p.getY()-3)*75)+74 && p.isPressed()&& isAvailable(p.getX()+2, p.getY()-2) && pieceColorAt(p.getX()+1, p.getY()-1).equals("red"))
-    {
-      outPiece(getPieceAt(p.getX()+1, p.getY()-1));
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    if (clickX >= (p.getX()-3)*75 && clickX <=((p.getX()-3)*75)+74 && clickY >= (p.getY()+1)*75 && clickY <=((p.getY()+1)*75)+74 && p.isPressed() &&p.isKing()&& isAvailable(p.getX()-2, p.getY()+2) && pieceColorAt(p.getX()-1, p.getY()+1).equals("red"))
-    {
-      outPiece(getPieceAt(p.getX()-1, p.getY()+1));
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-    
-    if (clickX >= (p.getX()+1)*75 && clickX <=((p.getX()+1)*75)+74 && clickY >= (p.getY()+1)*75 && clickY <=((p.getY()+1)*75)+74 && p.isPressed() && p.isKing()&& isAvailable(p.getX()+2, p.getY()+2) && pieceColorAt(p.getX()+1, p.getY()+1).equals("red"))
-    {
-      outPiece(getPieceAt(p.getX()+1, p.getY()+1));
-      movePiece((clickX/75)+1, (clickY/75)+1);
-    }
-      //end jump drawing code
+      if(Math.abs(clickY-p.getYPixel()) <= 75/3 && Math.abs(clickX-p.getXPixel()) <= 75/3 && p.getColor().equals("black") && p.getIn())
+      {
+        boolean adf = p.isPressed();
+        for (piece pt : pieces)
+          pt.setPress(false);
+        p.setPress(!adf);
+      }
       
-    
+      if (clickX >= (p.getX()-2)*75 && clickX <=((p.getX()-2)*75)+74 && clickY >= (p.getY()-2)*75 && clickY <=((p.getY()-2)*75)+74 && p.isPressed())
+      {
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      if (clickX >= (p.getX())*75 && clickX <=((p.getX())*75)+74 && clickY >= (p.getY()-2)*75 && clickY <=((p.getY()-2)*75)+74 && p.isPressed())
+      {
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      if (clickX >= (p.getX()-2)*75 && clickX <=((p.getX()-2)*75)+74 && clickY >= (p.getY())*75 && clickY <=((p.getY())*75)+74 && p.isPressed() &&p.isKing())
+      {
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      if (clickX >= (p.getX())*75 && clickX <=((p.getX())*75)+74 && clickY >= (p.getY())*75 && clickY <=((p.getY())*75)+74 && p.isPressed() && p.isKing())
+      {
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      //jump drawing code
+        if (clickX >= (p.getX()-3)*75 && clickX <=((p.getX()-3)*75)+74 && clickY >= (p.getY()-3)*75 && clickY <=((p.getY()-3)*75)+74 && p.isPressed() && isAvailable(p.getX()-2, p.getY()-2) && pieceColorAt(p.getX()-1, p.getY()-1).equals("red"))
+      {
+        outPiece(getPieceAt(p.getX()-1, p.getY()-1));
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      if (clickX >= (p.getX()+1)*75 && clickX <=((p.getX()+1)*75)+74 && clickY >= (p.getY()-3)*75 && clickY <=((p.getY()-3)*75)+74 && p.isPressed()&& isAvailable(p.getX()+2, p.getY()-2) && pieceColorAt(p.getX()+1, p.getY()-1).equals("red"))
+      {
+        outPiece(getPieceAt(p.getX()+1, p.getY()-1));
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      if (clickX >= (p.getX()-3)*75 && clickX <=((p.getX()-3)*75)+74 && clickY >= (p.getY()+1)*75 && clickY <=((p.getY()+1)*75)+74 && p.isPressed() &&p.isKing()&& isAvailable(p.getX()-2, p.getY()+2) && pieceColorAt(p.getX()-1, p.getY()+1).equals("red"))
+      {
+        outPiece(getPieceAt(p.getX()-1, p.getY()+1));
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+      
+      if (clickX >= (p.getX()+1)*75 && clickX <=((p.getX()+1)*75)+74 && clickY >= (p.getY()+1)*75 && clickY <=((p.getY()+1)*75)+74 && p.isPressed() && p.isKing()&& isAvailable(p.getX()+2, p.getY()+2) && pieceColorAt(p.getX()+1, p.getY()+1).equals("red"))
+      {
+        outPiece(getPieceAt(p.getX()+1, p.getY()+1));
+        movePiece((clickX/75)+1, (clickY/75)+1);
+      }
+        //end jump drawing code
+        
+    }
   }
   
 }
