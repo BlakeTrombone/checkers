@@ -2,5 +2,7 @@ https://amnonp5.wordpress.com/2012/01/28/25-life-saving-tips-for-processing/
 
 https://processing.org/reference/text_.html
 
+https://www.youtube.com/watch?v=A5fFxs_DUsQ&index=6&t=1082s&list=PLsyeobzWxl7qRzutQxZ9Xw7QJyr8Zuyif
+
 https://systembash.com/a-simple-java-udp-server-and-udp-client/
 

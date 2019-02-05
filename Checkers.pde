@@ -1,10 +1,14 @@
+import java.net.*;
+
 //Global Variables
 private piece[] pieces = new piece[16];
 private int clicker=0;
 private boolean npcTurn=false;
 private boolean ready=false;
-private boolean server;
-
+private boolean server=false;
+private boolean client=false;
+private int ah=0;
+private npc comp;
 
 //End Global Variables
 
@@ -176,17 +180,87 @@ void setup()
   pieces[5].setCoords(2,5);
 }
 
+void drawPrompt()
+{
+  if(client==false && server==false)
+  {
+    textAlign(CENTER, CENTER);
+    textSize(32);
+    if((mouseX>=100 && mouseX<=250) && (mouseY>=250 && mouseY<=350))
+    {
+      strokeWeight(3);
+      fill(256,256,256);
+    } else {
+      strokeWeight(1);
+      fill(204,204,204);
+    }
+    stroke(37,152,206);
+    rect(100, 250, 150, 100);
+    fill(0,0,0);
+    text("Client", 100, 250, 150, 100);
+    
+    if((mouseX>=350 && mouseX<=500) && (mouseY>=250 && mouseY<=350))
+    {
+      strokeWeight(3);
+      fill(256,256,256);
+    } else {
+      strokeWeight(1);
+      fill(204,204,204);
+    }
+    stroke(95,196,49);
+    rect(350, 250, 150, 100);
+    fill(0,0,0);
+    text("Server", 350, 250, 150, 100);
+  }
+  
+  if(client)
+  {
+    
+  }
+  
+  if(server)
+  {
+    fill(204,204,204);
+    stroke(204,204,204);
+    rect(0,0,600,600);
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    fill(0,0,0);
+    stroke(0,0,0);
+    text("Enter this IP address into partner's computer: "+getMyIp(), 200,200,200,200);
+    //try{comp = new npc(true);} catch (Exception e){}
+  }
+}
+
+
+String getMyIp()
+{
+  InetAddress ip;
+  String ips="";
+    try {
+
+    ip = InetAddress.getLocalHost();
+    ips= ""+ip.getHostAddress();
+
+    } catch (UnknownHostException e) {
+      System.out.println("oops!");
+    }
+    return ips;
+}
+
+
 void draw()
 {
   if (!ready)
   {
-    
+    drawPrompt();
+    bootNpc();
   }
   if (ready)
   {
     if (npcTurn)
     {
-      pieces=npc.turn(pieces);
+      pieces=npc.tturn(pieces);
       npcTurn=false;
     }
     background(255/2);
@@ -204,6 +278,18 @@ void mouseClicked()
   System.out.println("Click! "+ ++clicker);
   if (!ready)
   {
+    if (client==false && server==false)
+    {
+      if((clickX>=100 && clickX<=250) && (clickY>=250 && clickY<=350))
+      {
+        client=true;
+      }
+      
+      if((mouseX>=350 && mouseX<=500) && (mouseY>=250 && mouseY<=350))
+      {
+        server=true;
+      }
+    }
     
   }
   

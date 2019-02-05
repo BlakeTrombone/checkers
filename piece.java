@@ -16,7 +16,7 @@ public class piece
     isIn=true;
   }
   
-  private piece(int nx, int ny, String clr, boolean kng, boolean isn, boolean psd)
+  public piece(int nx, int ny, String clr, boolean kng, boolean isn, boolean psd)
   {
     setCoords(nx, ny);
     king=kng;
@@ -98,5 +98,22 @@ public class piece
   public piece clone()
   {
     return new piece(x, y, colr, king, isIn, pressed);
+  }
+  
+  public piece flip()
+  {
+    return new piece (9-x, 9-y, ((colr.equals("Red")) ? "Black" : "Red"), king, isIn, false);
+  }
+  
+  public String toString()
+  {
+    String output="";
+    output+=""+x;
+    output+=""+y;
+    output+=""+((colr.equals("Red")) ? "r" : "b");
+    output+=""+((king) ? "t" : "f");
+    output+=""+((isIn) ? "t" : "f");
+    output+=""+((pressed) ? "t" : "f");
+    return output;
   }
 }
