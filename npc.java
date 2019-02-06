@@ -6,34 +6,18 @@ public class npc extends Thread
     private DatagramSocket ds;
     private InetAddress ip;
     private boolean server;
+    private String serverIP;
     
     public npc(boolean server) throws Exception//server startup
     {
         server=true;
-        ds = new DatagramSocket(7059);
-        String ready="ready";
-        byte[] test = new byte[1024];
-        DatagramPacket dp = new DatagramPacket(test,test.length);
-        ds.receive(dp);
-        String info = new String(dp.getData());
-        ip=dp.getAddress();
-        String responce="ydaer";
-        DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
-        
-        
+        this.start();
     }
 
     public npc(String serverIP) throws Exception//client startup
     {
         server=false;
-        ds = new DatagramSocket();
-        InetAddress ip = InetAddress.getByName(serverIP);
-        String check="ready";
-        DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
-        ds.send(dp);
-        byte[] test = new byte[1024];
-        DatagramPacket dpr = new DatagramPacket(test, test.length);
-        ds.receive(dpr);
+        this.start();
     }
 
     private piece[] flip(piece[] pieces)//flips reds and blacks
@@ -75,5 +59,38 @@ public class npc extends Thread
     public piece[] turn(piece[] pieces)
     {
       return pieces;
+    }
+    
+    public void run()
+    {
+      
+      if(server)
+      {
+        try{
+          ds = new DatagramSocket(7059);
+          String ready="ready";
+          byte[] test = new byte[1024];
+          DatagramPacket dp = new DatagramPacket(test,test.length);
+          ds.receive(dp);
+          String info = new String(dp.getData());
+          ip=dp.getAddress();
+          String responce="ydaer";
+          DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
+        } catch (Exception e){}
+      }
+      
+      if (!server)
+      {
+        try{
+          ds = new DatagramSocket();
+          InetAddress ip = InetAddress.getByName(serverIP);
+          String check="ready";
+          DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
+          ds.send(dp);
+          byte[] test = new byte[1024];
+          DatagramPacket dpr = new DatagramPacket(test, test.length);
+          ds.receive(dpr);
+        } catch (Exception e){}
+      }
     }
 }

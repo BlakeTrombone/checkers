@@ -228,7 +228,7 @@ void drawPrompt()
     fill(0,0,0);
     stroke(0,0,0);
     text("Enter this IP address into partner's computer: "+getMyIp(), 200,200,200,200);
-    //try{comp = new npc(true);} catch (Exception e){}
+    try{comp = new npc(true);} catch (Exception e){System.out.println("OOPS!");}
   }
 }
 
@@ -254,7 +254,6 @@ void draw()
   if (!ready)
   {
     drawPrompt();
-    bootNpc();
   }
   if (ready)
   {
