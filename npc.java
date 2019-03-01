@@ -7,7 +7,11 @@ public class npc extends Thread
     private InetAddress ip;
     private boolean server;
     private String serverIP;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 4188ad28337d5b6c93deb97e2839455159b61ba3
     public npc(boolean server) throws Exception//server startup
     {
         server=true;
@@ -92,5 +96,38 @@ public class npc extends Thread
                 ds.receive(dpr);
             } catch (Exception e){}
         }
+    }
+    
+    public void run()
+    {
+      
+      if(server)
+      {
+        try{
+          ds = new DatagramSocket(7059);
+          String ready="ready";
+          byte[] test = new byte[1024];
+          DatagramPacket dp = new DatagramPacket(test,test.length);
+          ds.receive(dp);
+          String info = new String(dp.getData());
+          ip=dp.getAddress();
+          String responce="ydaer";
+          DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
+        } catch (Exception e){}
+      }
+      
+      if (!server)
+      {
+        try{
+          ds = new DatagramSocket();
+          InetAddress ip = InetAddress.getByName(serverIP);
+          String check="ready";
+          DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
+          ds.send(dp);
+          byte[] test = new byte[1024];
+          DatagramPacket dpr = new DatagramPacket(test, test.length);
+          ds.receive(dpr);
+        } catch (Exception e){}
+      }
     }
 }
