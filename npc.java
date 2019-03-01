@@ -6,34 +6,18 @@ public class npc extends Thread
     private DatagramSocket ds;
     private InetAddress ip;
     private boolean server;
-    
+    private String serverIP;
+
     public npc(boolean server) throws Exception//server startup
     {
         server=true;
-        ds = new DatagramSocket(7059);
-        String ready="ready";
-        byte[] test = new byte[1024];
-        DatagramPacket dp = new DatagramPacket(test,test.length);
-        ds.receive(dp);
-        String info = new String(dp.getData());
-        ip=dp.getAddress();
-        String responce="ydaer";
-        DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
-        
-        
+        this.start();
     }
 
     public npc(String serverIP) throws Exception//client startup
     {
         server=false;
-        ds = new DatagramSocket();
-        InetAddress ip = InetAddress.getByName(serverIP);
-        String check="ready";
-        DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
-        ds.send(dp);
-        byte[] test = new byte[1024];
-        DatagramPacket dpr = new DatagramPacket(test, test.length);
-        ds.receive(dpr);
+        this.start();
     }
 
     private piece[] flip(piece[] pieces)//flips reds and blacks
@@ -51,19 +35,19 @@ public class npc extends Thread
             output+=p.toString()+ " ";
         return output;
     }
-    
+
     private piece[] reconstruct(String s)//converts array of pieces to a string for network transmission
     {
         String[] ps = s.split(" ");
         piece[] pieces = new piece[16];
         for (int i = 0; i < 16; i++)
         {
-          pieces[i]= new piece (Integer.parseInt(ps[i].charAt(0)+""),
-                                Integer.parseInt(ps[i].charAt(1)+""),
-                                ((ps[i].charAt(2)=='r') ? "Red" : "Black"),
-                                ps[i].charAt(3)=='t',
-                                ps[i].charAt(4)=='t',
-                                ps[i].charAt(5)=='t');
+            pieces[i]= new piece (Integer.parseInt(ps[i].charAt(0)+""),
+                    Integer.parseInt(ps[i].charAt(1)+""),
+                    ((ps[i].charAt(2)=='r') ? "Red" : "Black"),
+                    ps[i].charAt(3)=='t',
+                    ps[i].charAt(4)=='t',
+                    ps[i].charAt(5)=='t');
         }
         return pieces;
     }
@@ -74,6 +58,39 @@ public class npc extends Thread
     }
     public piece[] turn(piece[] pieces)
     {
-      return pieces;
+        return pieces;
+    }
+
+    public void run()
+    {
+
+        if(server)
+        {
+            try{
+                ds = new DatagramSocket(7059);
+                String ready="ready";
+                byte[] test = new byte[1024];
+                DatagramPacket dp = new DatagramPacket(test,test.length);
+                ds.receive(dp);
+                String info = new String(dp.getData());
+                ip=dp.getAddress();
+                String responce="ydaer";
+                DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
+            } catch (Exception e){}
+        }
+
+        if (!server)
+        {
+            try{
+                ds = new DatagramSocket();
+                InetAddress ip = InetAddress.getByName(serverIP);
+                String check="ready";
+                DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
+                ds.send(dp);
+                byte[] test = new byte[1024];
+                DatagramPacket dpr = new DatagramPacket(test, test.length);
+                ds.receive(dpr);
+            } catch (Exception e){}
+        }
     }
 }
