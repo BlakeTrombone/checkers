@@ -100,6 +100,7 @@ public class npc extends Thread
         if(server)
         {
             try{
+                System.out.println("begun server side handshake");
                 ds = new DatagramSocket(7059);
                 String ready="ready";
                 byte[] test = new byte[1024];
@@ -111,12 +112,14 @@ public class npc extends Thread
                 DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
                 ds.send(dps);
                 handshook=true;
+                System.out.println("server handshook");
             } catch (Exception e){}
         }
 
         if (!server)
         {
             try{
+                System.out.println("begun client side handshake");
                 ds = new DatagramSocket();
                 ip = InetAddress.getByName(serverIP);
                 String check="ready";
@@ -126,6 +129,7 @@ public class npc extends Thread
                 DatagramPacket dpr = new DatagramPacket(test, test.length);
                 ds.receive(dpr);
                 handshook=true;
+                System.out.println("client handshook");
             } catch (Exception e){}
         }
     }
