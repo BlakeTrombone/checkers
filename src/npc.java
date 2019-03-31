@@ -11,12 +11,14 @@ public class npc extends Thread
 
     public npc(boolean server) throws Exception//server startup
     {
+        System.out.println("comp booted server mode");
         server=true;
         this.start();
     }
 
     public npc(String serveip) throws Exception//client startup
     {
+        System.out.println("comp booted client mode");
         server=false;
         serverIP=serveip;
         this.start();
