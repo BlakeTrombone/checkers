@@ -6,6 +6,7 @@ public class npc extends Thread
     private DatagramSocket ds;
     private InetAddress ip;
     private boolean server;
+    private boolean client;
     private String serverIP;
     private boolean handshook=false;
 
@@ -13,6 +14,7 @@ public class npc extends Thread
     {
         System.out.println("comp booted server mode");
         server=true;
+        client=false;
         this.start();
     }
 
@@ -20,6 +22,7 @@ public class npc extends Thread
     {
         System.out.println("comp booted client mode");
         server=false;
+        client=true;
         serverIP=serveip;
         this.start();
     }
@@ -118,7 +121,7 @@ public class npc extends Thread
             } catch (Exception e){}
         }
 
-        if (!server)
+        else if (client)
         {
             try{
                 System.out.println("begun client side handshake");
@@ -134,6 +137,8 @@ public class npc extends Thread
                 System.out.println("client handshook");
             } catch (Exception e){}
         }
+        else
+            System.out.println("comp booted without client or server config");
     }
 }
 
