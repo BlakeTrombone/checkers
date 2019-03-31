@@ -38,7 +38,7 @@ public class npc extends Thread
         return output;
     }
 
-    private piece[] reconstruct(String s)//converts array of pieces to a string for network transmission
+    private piece[] reconstruct(String s)//converts a string back into an array of pieces
     {
         String[] ps = s.split(" ");
         piece[] pieces = new piece[16];
