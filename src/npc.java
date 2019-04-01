@@ -99,7 +99,7 @@ public class npc extends Thread
     public void run()
     {
 
-        if(server)
+        if(this.server)
         {
             try{
                 System.out.println("begun server side handshake");
@@ -118,7 +118,7 @@ public class npc extends Thread
             } catch (Exception e){}
         }
 
-        else if (!server)
+        else if (!this.server)
         {
             try{
                 System.out.println("begun client side handshake");
