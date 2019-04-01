@@ -360,8 +360,14 @@ public class Checkers extends PApplet {
                 if (clickX >=150 && clickX <=450 && clickY>=375 && clickY<=425)
                 {
                     System.out.println("next");
-                    if (comp!=null)
-                        try{comp = new npc(serverIp); npcTurn=true;} catch (Exception e){System.out.println("OOPS!");}
+                    if (comp==null) {
+                        try {
+                            comp = new npc(serverIp);
+                            npcTurn = true;
+                        } catch (Exception e) {
+                            System.out.println("OOPS!");
+                        }
+                    }
                 }
             }
 
