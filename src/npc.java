@@ -3,18 +3,16 @@ import java.net.*;
 
 public class npc extends Thread
 {
-    private DatagramSocket ds;
-    private InetAddress ip;
-    private boolean server;
-    private boolean client;
-    private String serverIP;
-    private boolean handshook=false;
+    private static DatagramSocket ds;
+    private static InetAddress ip;
+    private static boolean server;
+    private static String serverIP;
+    private static boolean handshook=false;
 
     public npc(boolean server) throws Exception//server startup
     {
         System.out.println("comp booted server mode");
         server=true;
-        client=false;
         this.start();
     }
 
@@ -22,7 +20,6 @@ public class npc extends Thread
     {
         System.out.println("comp booted client mode");
         server=false;
-        client=true;
         serverIP=serveip;
         this.start();
     }
@@ -121,7 +118,7 @@ public class npc extends Thread
             } catch (Exception e){}
         }
 
-        else if (client)
+        else if (!server)
         {
             try{
                 System.out.println("begun client side handshake");
