@@ -14,13 +14,12 @@ public class serverTest {
         {
             try{
                 ds = new DatagramSocket(7059);
-                String ready="ready";
                 byte[] test = new byte[1024];
                 DatagramPacket dp = new DatagramPacket(test,test.length);
                 ds.receive(dp);
                 String info = new String(dp.getData());
                 ip=dp.getAddress();
-                String responce="ydaer";
+                String responce=new StringBuilder(info).reverse().toString();;
                 DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
                 ds.send(dps);
                 handshook=true;
