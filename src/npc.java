@@ -12,15 +12,15 @@ public class npc extends Thread
     public npc(boolean server) throws Exception//server startup
     {
         System.out.println("comp booted server mode");
-        server=true;
+        this.server=true;
         this.start();
     }
 
     public npc(String serveip) throws Exception//client startup
     {
         System.out.println("comp booted client mode");
-        server=false;
-        serverIP=serveip;
+        this.server=false;
+        this.serverIP=serveip;
         this.start();
     }
 
@@ -62,15 +62,15 @@ public class npc extends Thread
     }
     public boolean isHandshook()
     {
-        return handshook;
+        return this.handshook;
     }
 
     public piece[] firstRun()
     {
         try{
             byte[] recieveData = new byte[1024];
-            ds = new DatagramSocket();
-            InetAddress ip = InetAddress.getByName(serverIP);
+            this.ds = new DatagramSocket();
+            this.ip = InetAddress.getByName(serverIP);
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
             ds.receive(dpr);
             String recieveString = new String(recieveData);
@@ -82,14 +82,14 @@ public class npc extends Thread
     public piece[] turn(piece[] pieces)
     {
         try{
-            ds = new DatagramSocket();
-            InetAddress ip = InetAddress.getByName(serverIP);
+            this.ds = new DatagramSocket();
+            this.ip = InetAddress.getByName(serverIP);
             String sendData=deconstruct(flip(pieces));
             DatagramPacket dp = new DatagramPacket(sendData.getBytes(), sendData.getBytes().length,ip,7059);
-            ds.send(dp);
+            this.ds.send(dp);
             byte[] recieveData = new byte[1024];
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
-            ds.receive(dpr);
+            this.ds.receive(dpr);
             String recieveString = new String(recieveData);
             return reconstruct(recieveString);
         } catch (Exception e){return null;}
@@ -103,17 +103,17 @@ public class npc extends Thread
         {
             try{
                 System.out.println("begun server side handshake");
-                ds = new DatagramSocket(7059);
+                this.ds = new DatagramSocket(7059);
                 String ready="ready";
                 byte[] test = new byte[1024];
                 DatagramPacket dp = new DatagramPacket(test,test.length);
-                ds.receive(dp);
+                this.ds.receive(dp);
                 String info = new String(dp.getData());
-                ip=dp.getAddress();
+                this.ip=dp.getAddress();
                 String responce="ydaer";
                 DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
-                ds.send(dps);
-                handshook=true;
+                this.ds.send(dps);
+                this.handshook=true;
                 System.out.println("server handshook");
             } catch (Exception e){}
         }
@@ -122,15 +122,15 @@ public class npc extends Thread
         {
             try{
                 System.out.println("begun client side handshake");
-                ds = new DatagramSocket();
-                ip = InetAddress.getByName(serverIP);
+                this.ds = new DatagramSocket();
+                this.ip = InetAddress.getByName(serverIP);
                 String check="ready";
                 DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
-                ds.send(dp);
+                this.ds.send(dp);
                 byte[] test = new byte[1024];
                 DatagramPacket dpr = new DatagramPacket(test, test.length);
-                ds.receive(dpr);
-                handshook=true;
+                this.ds.receive(dpr);
+                this.handshook=true;
                 System.out.println("client handshook");
             } catch (Exception e){}
         }
