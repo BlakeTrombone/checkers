@@ -15,6 +15,7 @@ public class Checkers extends PApplet {
     private boolean client=false;
     private String serverIp;
     private npc comp;
+    private boolean pass=true;
     //End Global Variables
 
     public void drawBoard()
@@ -257,11 +258,12 @@ public class Checkers extends PApplet {
                 textSize(32);
                 fill(0,0,0);
                 text("Loading...", 200,275,200,50);
-                if (comp.isHandshook())
+                if (comp.isHandshook() && pass)
                 {
                     comp.firstRun();
                     ready=true;
                 }
+                pass=false;
             }
         }
 
@@ -289,7 +291,7 @@ public class Checkers extends PApplet {
             ips= ""+ip.getHostAddress();
 
         } catch (UnknownHostException e) {
-            System.out.println("oops!");
+            System.out.println("failed to get ip address");
         }
         return ips;
     }
