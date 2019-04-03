@@ -260,7 +260,7 @@ public class Checkers extends PApplet {
                 text("Loading...", 200,275,200,50);
                 if (comp.isHandshook() && pass)
                 {
-                    comp.firstRun();
+                    pieces=comp.firstRun();
                     ready=true;
                 }
                 pass=false;
