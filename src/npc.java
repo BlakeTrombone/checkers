@@ -7,10 +7,11 @@ public class npc extends Thread
     private static InetAddress ip;
     private static boolean server;
     private static String serverIP;
-    private static boolean handshook=false;
+    private static boolean handshook;
 
     public npc(boolean server) throws Exception//server startup
     {
+        this.handshook=false;
         System.out.println("comp booted server mode");
         this.server=true;
         this.start();
@@ -18,6 +19,7 @@ public class npc extends Thread
 
     public npc(String serveip) throws Exception//client startup
     {
+        this.handshook=false;
         System.out.println("comp booted client mode");
         this.server=false;
         this.serverIP=serveip;
