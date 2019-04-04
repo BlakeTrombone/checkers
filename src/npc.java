@@ -69,6 +69,7 @@ public class npc extends Thread
 
     public piece[] firstRun()
     {
+        System.out.println("start firstrun method");
         try{
             byte[] recieveData = new byte[1024];
             this.ds = new DatagramSocket();
@@ -76,6 +77,7 @@ public class npc extends Thread
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
             ds.receive(dpr);
             String recieveString = new String(recieveData);
+            System.out.println("finish firstrun method");
             return reconstruct(recieveString);
         } catch (Exception e){return null;}
     }
