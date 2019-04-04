@@ -347,7 +347,7 @@ public class Checkers extends PApplet {
                 if((clickX>=100 && clickX<=250) && (clickY>=250 && clickY<=350))
                 {
                     server=true;
-                    try{comp = new npc(true);} catch (Exception e){System.out.println("OOPS!");}
+                    try{this.comp = new npc(true);} catch (Exception e){System.out.println("OOPS!");}
                 }
 
                 if((clickX>=350 && clickX<=500) && (clickY>=250 && clickY<=350))
