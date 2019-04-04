@@ -14,7 +14,7 @@ public class Checkers extends PApplet {
     private boolean server=false;
     private boolean client=false;
     private String serverIp;
-    private npc comp;
+    private static npc comp;
     private boolean pass=true;
     //End Global Variables
 
@@ -222,7 +222,7 @@ public class Checkers extends PApplet {
 
         if(client)//client menu drawing
         {
-            if (comp==null) {
+            if (this.comp==null) {
                 strokeWeight(1);
                 fill(204, 204, 204);
                 stroke(204, 204, 204);
@@ -250,7 +250,7 @@ public class Checkers extends PApplet {
                 fill(0, 0, 0);
                 text("Next", 150, 375, 300, 50);
             }
-            if (comp!=null)
+            if (this.comp!=null)
             {
                 stroke(204,204,204);
                 fill(204,204,204);
@@ -258,9 +258,9 @@ public class Checkers extends PApplet {
                 textSize(32);
                 fill(0,0,0);
                 text("Loading...", 200,275,200,50);
-                if (comp.isHandshook() && !pass)
+                if (this.comp.isHandshook() && !pass)
                 {
-                    pieces=comp.firstRun();
+                    pieces=this.comp.firstRun();
                     ready=true;
                 }
                 pass=false;
@@ -307,7 +307,7 @@ public class Checkers extends PApplet {
         {
             if (npcTurn)
             {
-                pieces=comp.turn(pieces);
+                pieces=this.comp.turn(pieces);
                 npcTurn=false;
             }
             background(255/2);
@@ -362,9 +362,9 @@ public class Checkers extends PApplet {
                 if (clickX >=150 && clickX <=450 && clickY>=375 && clickY<=425)
                 {
                     System.out.println("next");
-                    if (comp==null) {
+                    if (this.comp==null) {
                         try {
-                            comp = new npc(serverIp);
+                            this.comp = new npc(serverIp);
                             npcTurn = true;
                         } catch (Exception e) {
                             System.out.println("OOPS!");
