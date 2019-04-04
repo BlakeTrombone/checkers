@@ -277,6 +277,8 @@ public class Checkers extends PApplet {
             fill(0,0,0);
             stroke(0,0,0);
             text("Enter this IP address into partner's computer: "+getMyIp(), 200,200,200,200);
+            if (this.comp.isHandshook())
+                ready=true;
         }
     }
 
