@@ -299,6 +299,8 @@ public class Checkers extends PApplet {
 
     public void draw()
     {
+        if (comp!=null && comp.isHandshook())
+            System.out.println("handshook=true");
         if (!ready)
         {
             drawPrompt();
