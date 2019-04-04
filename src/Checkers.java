@@ -7,7 +7,7 @@ public class Checkers extends PApplet {
     }
 
     //Global Variables
-    private piece[] pieces = new piece[16];
+    private static piece[] pieces = new piece[16];
     private int clicker=0;
     private boolean npcTurn=false;
     private boolean ready=false;
@@ -63,13 +63,13 @@ public class Checkers extends PApplet {
             if (tempy >=3)
                 tempy=8-(4-tempy);
             tempx=(2*(i%4))+(tempy%2)+1;
-            pieces[i]=new piece(tempx,tempy,tempclr);
+            this.pieces[i]=new piece(tempx,tempy,tempclr);
         }
     }
 
     public void piecesDraw()
     {
-        for (piece p : pieces)
+        for (piece p : this.pieces)
         {
             if (p.getColor().equals("red"))
             {
@@ -123,10 +123,10 @@ public class Checkers extends PApplet {
     public void movePiece(int newX, int newY)
     {
         for (int i=0; i < 16; i++)
-            if (pieces[i].isPressed() && isAvailable(newX, newY))
+            if (this.pieces[i].isPressed() && isAvailable(newX, newY))
             {
-                pieces[i].setCoords(newX, newY);
-                pieces[i].setPress(false);
+                this.pieces[i].setCoords(newX, newY);
+                this.pieces[i].setPress(false);
             }
         npcTurn=true;
     }
@@ -141,9 +141,9 @@ public class Checkers extends PApplet {
     public piece getPieceAt(int x, int y)
     {
         for (int i=0; i < 16; i++)
-            if (y==pieces[i].getY() && x==pieces[i].getX())
+            if (y==this.pieces[i].getY() && x==this.pieces[i].getX())
             {
-                return pieces[i];
+                return this.pieces[i];
             }
         System.out.println("green");
         return new piece(9,9,"green");
@@ -151,7 +151,7 @@ public class Checkers extends PApplet {
 
     public boolean isAvailable(int x, int y)
     {
-        for (piece pt : pieces)
+        for (piece pt : this.pieces)
         {
             if(pt.getX()==x && pt.getY()==y)
                 return false;
@@ -170,7 +170,7 @@ public class Checkers extends PApplet {
 
     public void crownKings()
     {
-        for (piece pt : pieces)
+        for (piece pt : this.pieces)
         {
             if(pt.getY()==1 && pt.getColor().equals("black"))
                 pt.setKing(true);
@@ -260,7 +260,7 @@ public class Checkers extends PApplet {
                 text("Loading...", 200,275,200,50);
                 if (this.comp.isHandshook() && !pass)
                 {
-                    pieces=this.comp.firstRun();
+                    this.pieces=this.comp.firstRun();
                     ready=true;
                 }
                 pass=false;
@@ -309,11 +309,13 @@ public class Checkers extends PApplet {
         {
             if (npcTurn)
             {
-                pieces=this.comp.turn(pieces);
+                this.pieces=this.comp.turn(this.pieces);
                 npcTurn=false;
             }
             background(255/2);
             drawBoard();
+            if (this.pieces==null)
+                piecesSetup();
             piecesDraw();
             crownKings();
         }
@@ -379,12 +381,12 @@ public class Checkers extends PApplet {
 
         if (ready)
         {
-            for (piece p : pieces)
+            for (piece p : this.pieces)
             {
                 if(Math.abs(clickY-p.getYPixel()) <= 75/3 && Math.abs(clickX-p.getXPixel()) <= 75/3 && p.getColor().equals("black") && p.getIn())
                 {
                     boolean adf = p.isPressed();
-                    for (piece pt : pieces)
+                    for (piece pt : this.pieces)
                         pt.setPress(false);
                     p.setPress(!adf);
                 }
