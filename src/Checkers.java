@@ -307,17 +307,17 @@ public class Checkers extends PApplet {
         }
         if (ready)
         {
+            background(255/2);
+            drawBoard();
+            if (Checkers.chips==null)
+                piecesSetup();
+            piecesDraw();
+            crownKings();
             if (npcTurn)
             {
                 Checkers.chips=this.comp.turn(Checkers.chips);
                 npcTurn=false;
             }
-            background(255/2);
-            drawBoard();
-            //if (Checkers.chips==null)
-            //    piecesSetup();
-            piecesDraw();
-            crownKings();
         }
     }
 
