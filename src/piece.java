@@ -21,6 +21,7 @@ public class piece
         king=kng;
         isIn=isn;
         pressed=psd;
+        colr=clr;
     }
 
     public void setCoords(int nx, int ny)
