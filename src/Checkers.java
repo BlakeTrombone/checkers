@@ -411,7 +411,7 @@ public class Checkers extends PApplet {
                     movePiece((clickX/75)+1, (clickY/75)+1);
                 }
 
-                //jump drawing code
+                //jump code
                 if (clickX >= (p.getX()-3)*75 && clickX <=((p.getX()-3)*75)+74 && clickY >= (p.getY()-3)*75 && clickY <=((p.getY()-3)*75)+74 && p.isPressed() && isAvailable(p.getX()-2, p.getY()-2) && pieceColorAt(p.getX()-1, p.getY()-1).equals("red"))
                 {
                     outPiece(getPieceAt(p.getX()-1, p.getY()-1));
@@ -435,7 +435,7 @@ public class Checkers extends PApplet {
                     outPiece(getPieceAt(p.getX()+1, p.getY()+1));
                     movePiece((clickX/75)+1, (clickY/75)+1);
                 }
-                //end jump drawing code
+                //end jump code
 
             }
         }
