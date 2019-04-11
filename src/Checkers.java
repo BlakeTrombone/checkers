@@ -262,6 +262,7 @@ public class Checkers extends PApplet {
                 {
                     Checkers.chips=this.comp.firstRun();
                     ready=true;
+                    pass=true;
                 }
                 pass=false;
             }
@@ -313,11 +314,13 @@ public class Checkers extends PApplet {
                 piecesSetup();
             piecesDraw();
             crownKings();
-            if (npcTurn)
+            if (npcTurn && !pass)
             {
                 Checkers.chips=this.comp.turn(Checkers.chips);
                 npcTurn=false;
             }
+            if (!pass)
+                pass=false;
         }
     }
 
