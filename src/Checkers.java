@@ -319,7 +319,7 @@ public class Checkers extends PApplet {
                 Checkers.chips=this.comp.turn(Checkers.chips);
                 npcTurn=false;
             }
-            if (!pass)
+            if (pass)
                 pass=false;
         }
     }
