@@ -96,7 +96,7 @@ public class npc extends Thread
             this.ds.receive(dpr);
             String recieveString = new String(recieveData);
             return reconstruct(recieveString);
-        } catch (Exception e){System.out.println(e);return null;}
+        } catch (Exception e){e.printStackTrace();return null;}
     }
 
 
