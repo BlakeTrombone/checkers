@@ -30,7 +30,7 @@ public class npc extends Thread
     {
         piece[] output = new piece[16];
         for (int x = 0; x < 16; x++)
-            output[x]=pieces[x+6].flip();
+            output[x]=pieces[(x+8)%16].flip();
         return output;
     }
 
