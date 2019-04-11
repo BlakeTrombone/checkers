@@ -264,7 +264,8 @@ public class Checkers extends PApplet {
                     ready=true;
                     pass=true;
                 }
-                pass=false;
+                else
+                    pass=false;
             }
         }
 
