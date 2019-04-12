@@ -261,6 +261,7 @@ public class Checkers extends PApplet {
                 if (this.comp.isHandshook() && !pass)
                 {
                     Checkers.chips=this.comp.firstRun();
+                    npcTurn=false;
                     ready=true;
                     pass=true;
                 }
