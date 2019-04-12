@@ -162,7 +162,7 @@ public class Checkers extends PApplet {
             }
             else
             {
-                System.out.println(Checkers.chips[i].isPressed()+""+isAvailable(p.getX()+2, p.getY()-2) + pieceColorAt(p.getX()+1, p.getY()-1).equals("red"));
+                System.out.println(""+Checkers.chips[i].getX()+Checkers.chips[i].getY()+Checkers.chips[i].isPressed()+isAvailable(p.getX()+2, p.getY()-2) + pieceColorAt(p.getX()+1, p.getY()-1).equals("red"));
             }
     }
 
