@@ -86,6 +86,7 @@ public class npc extends Thread
     public piece[] turn(piece[] pieces)
     {
         try{
+            System.out.println("begun turn");
             String sendData=deconstruct(flip(pieces));
             DatagramPacket dp = new DatagramPacket(sendData.getBytes(), sendData.getBytes().length,ip,othersport);
             this.ds.send(dp);
@@ -94,6 +95,7 @@ public class npc extends Thread
             System.out.println("waiting for data");
             this.ds.receive(dpr);
             String recieveString = new String(recieveData);
+            System.out.println("end turn");
             return reconstruct(recieveString);
         } catch (Exception e){e.printStackTrace();return null;}
     }
