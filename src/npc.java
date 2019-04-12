@@ -75,6 +75,7 @@ public class npc extends Thread
             this.ds = new DatagramSocket();
             this.ip = InetAddress.getByName(serverIP);
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
+            System.out.println("waiting for data");
             ds.receive(dpr);
             String recieveString = new String(recieveData);
             System.out.println("finish firstrun method");
@@ -93,6 +94,7 @@ public class npc extends Thread
             this.ds.send(dp);
             byte[] recieveData = new byte[1024];
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
+            System.out.println("waiting for data");
             this.ds.receive(dpr);
             String recieveString = new String(recieveData);
             return reconstruct(recieveString);
