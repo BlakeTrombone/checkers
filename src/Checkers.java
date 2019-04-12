@@ -160,6 +160,10 @@ public class Checkers extends PApplet {
                 this.jumped=true;
                 this.jumpedPiece=Checkers.chips[i];
             }
+            else
+            {
+                System.out.println(canJump(Checkers.chips[i])+" "+Checkers.chips[i].isPressed());
+            }
     }
 
     public piece getPieceAt(int x, int y)
