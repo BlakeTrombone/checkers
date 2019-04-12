@@ -130,6 +130,8 @@ public class Checkers extends PApplet {
                 Checkers.chips[i].setCoords(newX, newY);
                 Checkers.chips[i].setPress(false);
             }
+        if (!jumped)
+            npcTurn=true;
     }
 
     public boolean canJump(piece p)
@@ -157,7 +159,6 @@ public class Checkers extends PApplet {
             }
             else {
                 jumped=false;
-                npcTurn = true;
             }
     }
 
