@@ -156,7 +156,7 @@ public class Checkers extends PApplet {
         for (int i=0; i < 16; i++)
             if (canJump(Checkers.chips[i]) && Checkers.chips[i].isPressed()) {
                 System.out.println("can jump");
-                jumped = true;
+                jumped=true;
                 jumpedPiece=Checkers.chips[i];
             }
             else {
