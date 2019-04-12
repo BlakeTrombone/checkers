@@ -72,8 +72,6 @@ public class npc extends Thread
         System.out.println("start firstrun method");
         try{
             byte[] recieveData = new byte[1024];
-            this.ds = new DatagramSocket();
-            this.ip = InetAddress.getByName(serverIP);
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
             System.out.println("waiting for data");
             ds.receive(dpr);
@@ -87,8 +85,6 @@ public class npc extends Thread
     public piece[] turn(piece[] pieces)
     {
         try{
-            this.ds = new DatagramSocket();
-            this.ip = InetAddress.getByName(serverIP);
             String sendData=deconstruct(flip(pieces));
             DatagramPacket dp = new DatagramPacket(sendData.getBytes(), sendData.getBytes().length,ip,7059);
             this.ds.send(dp);
