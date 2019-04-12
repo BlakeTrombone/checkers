@@ -19,7 +19,7 @@ public class Checkers extends PApplet {
     private boolean pass=true;
     private static boolean jumped=false;
     private static piece jumpedPiece;
-    private Date date = new Date();
+    private Date date;
     //End Global Variables
 
     public void drawBoard()
@@ -274,7 +274,8 @@ public class Checkers extends PApplet {
                 rect(150, 300, 300, 50);
                 fill(0, 0, 0);
                 stroke(0, 0, 0);
-                text(serverIp+ (((date.getTime()/1000)%2==0) ? "" : "|"), 150, 300, 300, 50);
+                date=new Date();
+                text(serverIp+ (((date.getTime()/500)%2==0)? " " : "|"), 150, 300, 300, 50);
                 if (mouseX >= 150 && mouseX <= 450 && mouseY >= 375 && mouseY <= 425) {
                     fill(255, 255, 255);
                     stroke(95, 196, 49);
@@ -376,6 +377,18 @@ public class Checkers extends PApplet {
             if ((char) key == 8 && serverIp.length()>0)
             {
                 serverIp=serverIp.substring(0,serverIp.length()-1);
+            }
+            if (key==10 || key==13)
+            {
+                System.out.println("next");
+                if (this.comp==null) {
+                    try {
+                        this.comp = new npc(serverIp);
+                        npcTurn = true;
+                    } catch (Exception e) {
+                        System.out.println("OOPS!");
+                    }
+                }
             }
             System.out.println(serverIp);
         }
