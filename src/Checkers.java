@@ -88,24 +88,24 @@ public class Checkers extends PApplet {
             {
                 stroke(255,255,0);
                 fill(255, 255, 0,100);
-                if (isAvailable(p.getX()-1, p.getY()-1))
+                if (isAvailable(p.getX()-1, p.getY()-1) && !moved)//front left
                     rect((p.getX()-2)*75, (p.getY()-2)*75, 75,75);
-                if(isAvailable(p.getX()+1, p.getY()-1))
+                if(isAvailable(p.getX()+1, p.getY()-1) && !moved)//front right
                     rect((p.getX())*75, (p.getY()-2)*75, 75,75);
-                if (isAvailable(p.getX()-1, p.getY()+1) && p.isKing())
+                if (isAvailable(p.getX()-1, p.getY()+1) && p.isKing() && !moved)//back left
                     rect((p.getX()-2)*75, (p.getY())*75, 75,75);
-                if(isAvailable(p.getX()+1, p.getY()+1) && p.isKing())
+                if(isAvailable(p.getX()+1, p.getY()+1) && p.isKing() && !moved)//back right
                     rect((p.getX())*75, (p.getY())*75, 75,75);
 
 
                 //jump drawing code
-                if (isAvailable(p.getX()-2, p.getY()-2) && pieceColorAt(p.getX()-1, p.getY()-1).equals("red"))
+                if (isAvailable(p.getX()-2, p.getY()-2) && pieceColorAt(p.getX()-1, p.getY()-1).equals("red"))//front left
                     rect((p.getX()-3)*75, (p.getY()-3)*75, 75,75);
-                if(isAvailable(p.getX()+2, p.getY()-2) && pieceColorAt(p.getX()+1, p.getY()-1).equals("red"))
+                if(isAvailable(p.getX()+2, p.getY()-2) && pieceColorAt(p.getX()+1, p.getY()-1).equals("red"))//front right
                     rect((p.getX()+1)*75, (p.getY()-3)*75, 75,75);
-                if (isAvailable(p.getX()-2, p.getY()+2) && p.isKing() && pieceColorAt(p.getX()-1, p.getY()+1).equals("red"))
+                if (isAvailable(p.getX()-2, p.getY()+2) && p.isKing() && pieceColorAt(p.getX()-1, p.getY()+1).equals("red"))//back left
                     rect((p.getX()-3)*75, (p.getY()+1)*75, 75,75);
-                if(isAvailable(p.getX()+2, p.getY()+2) && p.isKing() && pieceColorAt(p.getX()+1, p.getY()+1).equals("red"))
+                if(isAvailable(p.getX()+2, p.getY()+2) && p.isKing() && pieceColorAt(p.getX()+1, p.getY()+1).equals("red"))//back right
                     rect((p.getX()+1)*75, (p.getY()+1)*75, 75,75);
                 //end jump drawing code
                 fill(0,0,0);
