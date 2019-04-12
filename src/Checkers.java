@@ -16,6 +16,7 @@ public class Checkers extends PApplet {
     private String serverIp;
     private static npc comp;
     private boolean pass=true;
+    private static boolean moved=false;
     //End Global Variables
 
     public void drawBoard()
@@ -127,8 +128,16 @@ public class Checkers extends PApplet {
             {
                 Checkers.chips[i].setCoords(newX, newY);
                 Checkers.chips[i].setPress(false);
+                if (canJump(Checkers.chips[i]))
+                    moved=true;
+                else
+                    npcTurn=true;
             }
-        npcTurn=true;
+    }
+
+    public boolean canJump(piece p)
+    {
+        return false;
     }
 
     public void outPiece(piece p)
