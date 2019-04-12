@@ -16,8 +16,8 @@ public class Checkers extends PApplet {
     private String serverIp;
     private static npc comp;
     private boolean pass=true;
-    private static boolean moved=false;
-    private static piece movedPiece;
+    private static boolean jumped=false;
+    private static piece jumpedPiece;
     //End Global Variables
 
     public void drawBoard()
@@ -89,13 +89,13 @@ public class Checkers extends PApplet {
             {
                 stroke(255,255,0);
                 fill(255, 255, 0,100);
-                if (isAvailable(p.getX()-1, p.getY()-1) && !moved)//front left
+                if (isAvailable(p.getX()-1, p.getY()-1) && !jumped)//front left
                     rect((p.getX()-2)*75, (p.getY()-2)*75, 75,75);
-                if(isAvailable(p.getX()+1, p.getY()-1) && !moved)//front right
+                if(isAvailable(p.getX()+1, p.getY()-1) && !jumped)//front right
                     rect((p.getX())*75, (p.getY()-2)*75, 75,75);
-                if (isAvailable(p.getX()-1, p.getY()+1) && p.isKing() && !moved)//back left
+                if (isAvailable(p.getX()-1, p.getY()+1) && p.isKing() && !jumped)//back left
                     rect((p.getX()-2)*75, (p.getY())*75, 75,75);
-                if(isAvailable(p.getX()+1, p.getY()+1) && p.isKing() && !moved)//back right
+                if(isAvailable(p.getX()+1, p.getY()+1) && p.isKing() && !jumped)//back right
                     rect((p.getX())*75, (p.getY())*75, 75,75);
 
 
@@ -129,14 +129,6 @@ public class Checkers extends PApplet {
             {
                 Checkers.chips[i].setCoords(newX, newY);
                 Checkers.chips[i].setPress(false);
-                if (canJump(Checkers.chips[i])) {
-                    moved = true;
-                    movedPiece=Checkers.chips[i];
-                }
-                else {
-                    moved=false;
-                    npcTurn = true;
-                }
             }
     }
 
@@ -158,6 +150,15 @@ public class Checkers extends PApplet {
         p.setCoords(9, 9);
         p.setPress(false);
         p.setIn(false);
+        for (int i=0; i < 16; i++)
+            if (canJump(Checkers.chips[i])) {
+                jumped = true;
+                jumpedPiece=Checkers.chips[i];
+            }
+            else {
+                jumped=false;
+                npcTurn = true;
+            }
     }
 
     public piece getPieceAt(int x, int y)
@@ -202,11 +203,11 @@ public class Checkers extends PApplet {
 
     public void forceMultiple()
     {
-        if (moved)
+        if (jumped)
         {
             for (piece pt : Checkers.chips)
                 pt.setPress(false);
-            movedPiece.setPress(true);
+            jumpedPiece.setPress(true);
         }
     }
 
