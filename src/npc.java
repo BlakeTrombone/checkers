@@ -8,6 +8,7 @@ public class npc extends Thread
     private static boolean server;
     private static String serverIP;
     private static boolean handshook;
+    private static int othersport;
 
     public npc(boolean server) throws Exception//server startup
     {
@@ -86,7 +87,7 @@ public class npc extends Thread
     {
         try{
             String sendData=deconstruct(flip(pieces));
-            DatagramPacket dp = new DatagramPacket(sendData.getBytes(), sendData.getBytes().length,ip,7059);
+            DatagramPacket dp = new DatagramPacket(sendData.getBytes(), sendData.getBytes().length,ip,othersport);
             this.ds.send(dp);
             byte[] recieveData = new byte[1024];
             DatagramPacket dpr = new DatagramPacket(recieveData, recieveData.length);
@@ -113,6 +114,7 @@ public class npc extends Thread
                 this.ip=dp.getAddress();
                 String responce=new StringBuilder(info).reverse().toString();
                 DatagramPacket dps = new DatagramPacket(responce.getBytes(), responce.getBytes().length, ip, dp.getPort());
+                this.othersport=dp.getPort();
                 this.ds.send(dps);
                 this.handshook=true;
                 System.out.println("server handshook");
@@ -127,6 +129,7 @@ public class npc extends Thread
                 this.ip = InetAddress.getByName(serverIP);
                 String check="ready";
                 DatagramPacket dp = new DatagramPacket(check.getBytes(), check.getBytes().length,ip,7059);
+                othersport=7059;
                 this.ds.send(dp);
                 byte[] test = new byte[1024];
                 DatagramPacket dpr = new DatagramPacket(test, test.length);
