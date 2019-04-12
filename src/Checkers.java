@@ -139,6 +139,14 @@ public class Checkers extends PApplet {
 
     public boolean canJump(piece p)
     {
+        if (isAvailable(p.getX()-2, p.getY()-2) && pieceColorAt(p.getX()-1, p.getY()-1).equals("red"))//front left
+            return true;
+        if(isAvailable(p.getX()+2, p.getY()-2) && pieceColorAt(p.getX()+1, p.getY()-1).equals("red"))//front right
+            return true;
+        if (isAvailable(p.getX()-2, p.getY()+2) && p.isKing() && pieceColorAt(p.getX()-1, p.getY()+1).equals("red"))//back left
+            return true;
+        if(isAvailable(p.getX()+2, p.getY()+2) && p.isKing() && pieceColorAt(p.getX()+1, p.getY()+1).equals("red"))//back right
+            return true;
         return false;
     }
 
