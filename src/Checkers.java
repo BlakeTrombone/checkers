@@ -193,7 +193,10 @@ public class Checkers extends PApplet {
     {
         if(!isAvailable(x,y))
             return getPieceAt(x,y).getColor();
-        else return "green";
+        else {
+            System.out.println("green");
+            return "green";
+        }
     }
 
     public void crownKings()
