@@ -130,8 +130,10 @@ public class Checkers extends PApplet {
                 Checkers.chips[i].setPress(false);
                 if (canJump(Checkers.chips[i]))
                     moved=true;
-                else
-                    npcTurn=true;
+                else {
+                    moved=false;
+                    npcTurn = true;
+                }
             }
     }
 
