@@ -51,10 +51,10 @@ public class npc extends Thread
         {
             pieces[i]= new piece (Integer.parseInt(ps[i].charAt(0)+""),
                     Integer.parseInt(ps[i].charAt(1)+""),
-                    ((ps[i].charAt(2)=='r') ? "Red" : "Black"),
+                    ((ps[i].charAt(2)=='r') ? "red" : "black"),
                     ps[i].charAt(3)=='t',
                     ps[i].charAt(4)=='t',
-                    ps[i].charAt(5)=='t');
+                    false);
         }
         return pieces;
     }

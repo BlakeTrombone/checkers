@@ -67,10 +67,10 @@ public class piece
 
     public void switchColor()
     {
-        if (colr.equals("Black"))
-            colr="Red";
-        else if (colr.equals("Red"))
-            colr="Black";
+        if (colr.equals("black"))
+            colr="red";
+        else if (colr.equals("red"))
+            colr="black";
         else
             System.out.println("I DON'T KNOW WHAT THE COLOR IS");
     }
@@ -102,7 +102,7 @@ public class piece
 
     public piece flip()
     {
-        return new piece (9-x, 9-y, ((colr.equals("Red")) ? "Black" : "Red"), king, isIn, false);
+        return new piece (9-x, 9-y, ((colr.equals("red")) ? "black" : "red"), king, isIn, false);
     }
 
     public String toString()
@@ -110,7 +110,7 @@ public class piece
         String output="";
         output+=""+x;
         output+=""+y;
-        output+=""+((colr.equals("Red")) ? "r" : "b");
+        output+=""+((colr.equals("red")) ? "r" : "b");
         output+=""+((king) ? "t" : "f");
         output+=""+((isIn) ? "t" : "f");
         output+=""+((pressed) ? "t" : "f");
