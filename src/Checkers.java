@@ -130,7 +130,7 @@ public class Checkers extends PApplet {
                 Checkers.chips[i].setCoords(newX, newY);
                 Checkers.chips[i].setPress(false);
             }
-        if (!jumped)
+        if (!this.jumped)
             npcTurn=true;
     }
 
@@ -156,11 +156,11 @@ public class Checkers extends PApplet {
         for (int i=0; i < 16; i++)
             if (canJump(Checkers.chips[i]) && Checkers.chips[i].isPressed()) {
                 System.out.println("can jump");
-                jumped=true;
-                jumpedPiece=Checkers.chips[i];
+                this.jumped=true;
+                this.jumpedPiece=Checkers.chips[i];
             }
             else {
-                jumped=false;
+                this.jumped=false;
             }
     }
 
@@ -206,11 +206,11 @@ public class Checkers extends PApplet {
 
     public void forceMultiple()
     {
-        if (jumped)
+        if (this.jumped)
         {
             for (piece pt : Checkers.chips)
                 pt.setPress(false);
-            jumpedPiece.setPress(true);
+            this.jumpedPiece.setPress(true);
         }
     }
 
