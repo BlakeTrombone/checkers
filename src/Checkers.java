@@ -311,8 +311,8 @@ public class Checkers extends PApplet {
         {
             background(255/2);
             drawBoard();
-            piecesDraw();
             crownKings();
+            piecesDraw();
             if (npcTurn && !pass)
             {
                 Checkers.chips=this.comp.turn(Checkers.chips);
