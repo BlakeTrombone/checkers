@@ -17,6 +17,7 @@ public class Checkers extends PApplet {
     private static npc comp;
     private boolean pass=true;
     private static boolean moved=false;
+    private static piece movedPiece;
     //End Global Variables
 
     public void drawBoard()
@@ -128,8 +129,10 @@ public class Checkers extends PApplet {
             {
                 Checkers.chips[i].setCoords(newX, newY);
                 Checkers.chips[i].setPress(false);
-                if (canJump(Checkers.chips[i]))
-                    moved=true;
+                if (canJump(Checkers.chips[i])) {
+                    moved = true;
+                    movedPiece=Checkers.chips[i];
+                }
                 else {
                     moved=false;
                     npcTurn = true;
@@ -195,6 +198,16 @@ public class Checkers extends PApplet {
                 pt.setKing(true);
         }
 
+    }
+
+    public void forceMultiple()
+    {
+        if (moved)
+        {
+            for (piece pt : Checkers.chips)
+                pt.setPress(false);
+            movedPiece.setPress(true);
+        }
     }
 
     public void settings()
@@ -332,6 +345,7 @@ public class Checkers extends PApplet {
             background(255/2);
             drawBoard();
             crownKings();
+            forceMultiple();
             piecesDraw();
             if (npcTurn && !pass)
             {
