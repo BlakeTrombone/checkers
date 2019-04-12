@@ -317,8 +317,9 @@ public class Checkers extends PApplet {
             {
                 Checkers.chips=this.comp.turn(Checkers.chips);
                 npcTurn=false;
+                pass=true;
             }
-            if (pass)
+            if (npcTurn && pass)
                 pass=false;
         }
     }
