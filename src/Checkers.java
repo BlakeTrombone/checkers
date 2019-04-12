@@ -173,7 +173,7 @@ public class Checkers extends PApplet {
             {
                 return Checkers.chips[i];
             }
-        System.out.println("green in getPieceAt");
+        //System.out.println("green in getPieceAt");
         return new piece(9,9,"green");
     }
 
@@ -194,7 +194,7 @@ public class Checkers extends PApplet {
         if(!isAvailable(x,y))
             return getPieceAt(x,y).getColor();
         else {
-            System.out.println("green in pieceColorAt");
+            //System.out.println("green in pieceColorAt");
             return "green";
         }
     }
